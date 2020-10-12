@@ -16,8 +16,10 @@ public class Controller {
 	// Number of processors that will execute the computation
 	int numberOfProcessors;
 	
-	// Array that stores the processors
+	// Work stealing controller
+	ControllerStealing workStealingController;
 	
+	// Arraylist of processors
 	ArrayList<Procesador> processors;
 	
 	public Controller (Digraph pG, int pNumberOfProcessors)
@@ -25,12 +27,16 @@ public class Controller {
 		G = pG;
 		numberOfProcessors = pNumberOfProcessors;
 		multithreadedComputation = new MultithreadedComputation(G);
+		workStealingController = new ControllerStealing(multithreadedComputation);
+
 		
 		//Create and store the processors
 		for (int i = 0 ; i < numberOfProcessors ; i++)
 		{
-			processors.add(new Procesador(multithreadedComputation,i+1));
+			workStealingController.addProcessor(new Procesador(multithreadedComputation,i+1));
 		}
+		
+		processors = workStealingController.getProcessors();
 		
 	}
 	

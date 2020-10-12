@@ -137,6 +137,7 @@ public class MultithreadedComputation {
 	 */
 	public synchronized void setVertexToSteal( Integer vertex )
 	{
+		// If there is not a vertex/task available to steal and a pro
 			vertexToSteal = vertex;
 			availableVertexToSteal =  true;
 	}
@@ -148,7 +149,7 @@ public class MultithreadedComputation {
 		return availableVertexToSteal;
 	}
 	
-	public Boolean getProcessorWantsToSteal() {
+	public Boolean getProcesorWantsToSteal() {
 		return processorWantsToSteal;
 	}
 

@@ -137,8 +137,12 @@ public class MultithreadedComputation {
 	 */
 	public synchronized void setVertexToSteal( Integer vertex )
 	{
+		// If there is not a vertex/task available to steal and a processor wants to steal one, other processor sets a vertex/task to steal
+		if (!availableVertexToSteal && processorWantsToSteal)
+		{
 			vertexToSteal = vertex;
 			availableVertexToSteal =  true;
+		}
 	}
 	
 
@@ -146,10 +150,6 @@ public class MultithreadedComputation {
 	
 	public Boolean getAvailableVertexToSteal() {
 		return availableVertexToSteal;
-	}
-	
-	public Boolean getProcessorWantsToSteal() {
-		return processorWantsToSteal;
 	}
 
 	public ArrayList<Integer> getEnqueuedVertices() {
