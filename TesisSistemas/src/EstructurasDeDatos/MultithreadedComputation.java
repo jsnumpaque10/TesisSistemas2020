@@ -26,13 +26,13 @@ public class MultithreadedComputation {
 	private ArrayList<Integer> enqueuedVertices;
 	
 	// Array that stores all the tasks that can be stolen
-	Integer vertexToSteal;
+	private Integer vertexToSteal;
 	
 	// Flag variable that indicates if a processor wants to steal a Vertex
-	Boolean processorWantsToSteal;
+	private Boolean processorWantsToSteal;
 	
 	// Flag variable that indicates if there is a vertex/task to be stolen
-	Boolean availableVertexToSteal;
+	private Boolean availableVertexToSteal;
 
 	// Object that will allow us to calculate the priority for each vertex in the computation
 	private LongestPathDAG longestPath;
@@ -137,12 +137,8 @@ public class MultithreadedComputation {
 	 */
 	public synchronized void setVertexToSteal( Integer vertex )
 	{
-		// If there is not a vertex/task available to steal and a processor wants to steal one, other processor sets a vertex/task to steal
-		if (!availableVertexToSteal && processorWantsToSteal)
-		{
 			vertexToSteal = vertex;
 			availableVertexToSteal =  true;
-		}
 	}
 	
 
@@ -150,6 +146,10 @@ public class MultithreadedComputation {
 	
 	public Boolean getAvailableVertexToSteal() {
 		return availableVertexToSteal;
+	}
+	
+	public Boolean getProcesorWantsToSteal() {
+		return processorWantsToSteal;
 	}
 
 	public ArrayList<Integer> getEnqueuedVertices() {

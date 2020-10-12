@@ -125,13 +125,16 @@ public class Procesador extends Thread{
 	/**
 	 * When possible, a vertex/task is given to another processor to be visited. 
 	 */
-	private void setVertexToSteal()
+	public boolean setVertexToSteal()
 	{
+		Boolean vertexSet = false;
 		if (this.readyDequeue.size()>1)
 		{
-			readyDequeue.remove(1);
+			readyDequeue.remove(0);
 			computation.setVertexToSteal(this.readyDequeue.get(1));
+			vertexSet = true;
 		}
+		return vertexSet;
 	}
 	
 	public void start()
@@ -142,7 +145,6 @@ public class Procesador extends Thread{
 		}
 		while(computation.numberOfVisitedVertices()!= computation.getNumberVerticesG())
 		{
-			this.setVertexToSteal();
 			this.visitVertex(0);
 		}
 	}

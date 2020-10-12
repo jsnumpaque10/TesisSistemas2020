@@ -8,10 +8,14 @@ public class ControllerStealing extends Thread {
 	
 	ArrayList<Procesador> processors;
 	
+	// Multithreaded computation that is going to be processed 
+	MultithreadedComputation computation;
 	
-	public ControllerStealing()
+	
+	public ControllerStealing(MultithreadedComputation pComputacion)
 	{
 		processors = new ArrayList<Procesador>();
+		computation = pComputacion;
 	}
 	
 	/**
@@ -21,6 +25,24 @@ public class ControllerStealing extends Thread {
 	public void addProcessor(Procesador procesador)
 	{
 		processors.add(procesador);
+	}
+	
+	public void start()
+	{
+		while(computation.numberOfVisitedVertices()!= computation.getNumberVerticesG())
+		{
+			if (computation.getProcesorWantsToSteal())
+			{
+				for (int i=0 ; i< processors.size(); i++)
+				{
+					if (processors.get(i).setVertexToSteal())
+					{
+						break;
+					}
+				}
+				
+			}
+		}
 	}
 
 }
