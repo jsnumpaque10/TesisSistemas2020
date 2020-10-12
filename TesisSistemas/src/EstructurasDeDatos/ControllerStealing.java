@@ -8,7 +8,7 @@ public class ControllerStealing extends Thread {
 	
 	ArrayList<Procesador> processors;
 	
-	// The computation that is going to be processed 
+	// Computation that is going to be processed 
 	MultithreadedComputation computation;
 	
 	
