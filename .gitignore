@@ -9,6 +9,11 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+TesisSistemas/.metadata
+TesisSistemas/.settings
+TesisSistemas/RemoteSystemsTempFiles
+TesisSistemas/.project
+TesisSistemas/.classpath
 
 # External tool builders
 .externalToolBuilders/

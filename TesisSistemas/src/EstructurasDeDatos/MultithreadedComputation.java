@@ -11,7 +11,7 @@ public class MultithreadedComputation {
 	// The digraph that models the multithreaded computations
 	private Digraph G;
 
-	// Number of tasks (vertices) of the multithreaded computation
+	// Number of tasks/vertices of the multithreaded computation
 	private int numberVerticesG; 
 	
 	// Array that stores, for each vertex, the number of incident vertices that have been visited
