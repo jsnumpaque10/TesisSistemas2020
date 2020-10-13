@@ -6,15 +6,9 @@ import edu.princeton.cs.algs4.Digraph;
 
 public class Controller {
 	
-	// Digraph that models the multithreaded computation
-	Digraph G;
-	
 	// The multithreaded computation
 	
 	MultithreadedComputation multithreadedComputation;
-	
-	// Number of processors that will execute the computation
-	int numberOfProcessors;
 	
 	// Work stealing controller
 	ControllerStealing workStealingController;
@@ -22,18 +16,17 @@ public class Controller {
 	// Arraylist of processors
 	ArrayList<Procesador> processors;
 	
-	public Controller (Digraph pG, int pNumberOfProcessors)
+	public Controller (Digraph pG, int numberOfProcessors)
 	{
-		G = pG;
-		numberOfProcessors = pNumberOfProcessors;
-		multithreadedComputation = new MultithreadedComputation(G);
+		multithreadedComputation = new MultithreadedComputation(pG);
 		workStealingController = new ControllerStealing(multithreadedComputation);
 
-		
 		//Create and store the processors
 		for (int i = 0 ; i < numberOfProcessors ; i++)
 		{
-			workStealingController.addProcessor(new Procesador(multithreadedComputation,i+1));
+			workStealingController.addProcessor(new Procesador(multithreadedComputation,i));
+			
+			System.out.println("Processor with id " + i + " has been created.");
 		}
 		
 		processors = workStealingController.getProcessors();
@@ -42,6 +35,10 @@ public class Controller {
 	
 	public void startExecution()
 	{
+		// Starts the work stealing controller
+		workStealingController.start();
+		
+		// Starts each one of the processors
 		for ( int i = 0 ; i < processors.size(); i++)
 		{
 			processors.get(i).start();
