@@ -42,17 +42,11 @@ public class Procesador extends Thread{
 		// vertex = -1 iff the processor's ready dequeue is empty. In this case processor begins work stealing
 		if (vertex == -1)
 		{
-			//Prints the state of the processor 
-			System.out.println("Processor's "+ this.id + " ready dequeue is empty.");
-			
 			this.steal();
 		}
 		// Visits the vertex if all of its predecessors have been visited, else the processor stalls. 
 		else if (computation.getIncidentVertices().get(vertex) == 0)
 		{
-			// Prints the id of the processor and the vertex/task that has visited/completed
-			System.out.println("Processor " + this.id + " has visited vertex " + vertex);
-			
 			// Remove vertex from the ready dequeue of the processor
 			readyDequeue.remove(indexVertexToVisit);
 			
@@ -65,11 +59,7 @@ public class Procesador extends Thread{
 			
 			while(iteratorAdjacentVertices.hasNext())
 			{
-
 				Integer adjacentVertex = iteratorAdjacentVertices.next();
-				
-				// Prints the task that is being enqueued in the ready dequeue of the processor
-				System.out.println("Task " + adjacentVertex + " enqueued in the processor " + this.id + " ready dequeue. ");
 					
 				if (readyDequeue.isEmpty() || computation.getPriorityVertices().get(adjacentVertex) >= computation.getPriorityVertices().get(readyDequeue.get(0)))
 				{
@@ -95,10 +85,6 @@ public class Procesador extends Thread{
 		}
 		else
 		{
-			//Prints the state of the processor 
-			System.out.println("Processor " + this.id + " has stalled.");
-			
-			//Processor enters in stall
 			this.stall(indexVertexToVisit);
 		}
 	}
@@ -129,12 +115,9 @@ public class Procesador extends Thread{
 	 */
 	private void steal() 
 	{
-		// Prints the state of the processor 
-		System.out.println("Processor " + this.id + " is work stealing.");
-		
 		if (computation.numberOfVisitedVertices()!=computation.getNumberVerticesG())
 		{
-			readyDequeue.add(computation.stealVertex(this.id));
+			readyDequeue.add(computation.stealVertex());
 			this.visitVertex(readyDequeue.size()-1);
 		}
 	}
@@ -147,11 +130,8 @@ public class Procesador extends Thread{
 		Boolean vertexSet = false;
 		if (this.readyDequeue.size()>1)
 		{
-			System.out.println("Processor " + this.id + " gives vertex " + readyDequeue.get(0) + " to steal.");
-			
 			readyDequeue.remove(0);
 			computation.setVertexToSteal(this.readyDequeue.get(1));
-			
 			vertexSet = true;
 		}
 		return vertexSet;
