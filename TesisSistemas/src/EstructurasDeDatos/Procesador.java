@@ -147,6 +147,7 @@ public class Procesador extends Thread{
 		Boolean vertexSet = false;
 		if (this.readyDequeue.size()>1)
 		{
+			// Prints the task/vertex that is being given by the processor
 			System.out.println("Processor " + this.id + " gives vertex " + readyDequeue.get(0) + " to steal.");
 			
 			readyDequeue.remove(0);

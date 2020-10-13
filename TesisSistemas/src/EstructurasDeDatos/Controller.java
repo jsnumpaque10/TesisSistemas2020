@@ -1,5 +1,7 @@
 package EstructurasDeDatos;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import edu.princeton.cs.algs4.Digraph;
@@ -33,8 +35,12 @@ public class Controller {
 		
 	}
 	
+	// Beginning of the execution
+	
 	public void startExecution()
 	{
+		long start = System.currentTimeMillis();
+		
 		// Starts the work stealing controller
 		workStealingController.start();
 		
@@ -43,6 +49,12 @@ public class Controller {
 		{
 			processors.get(i).start();
 		}
+		
+		long end = System.currentTimeMillis();
+		NumberFormat formatter = new DecimalFormat("#0.00000");
+		
+		//Prints the total time of execution of the computation
+		System.out.print("Execution time was " + formatter.format((end - start) / 1000d) + " seconds");
 	}
 
 }
