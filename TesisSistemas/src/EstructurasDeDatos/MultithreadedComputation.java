@@ -22,7 +22,7 @@ public class MultithreadedComputation {
 	private ArrayList<Integer> visitedVertices;
 	
 	// Array that tells if a given vertex has been enqueued. The i-th entry equals 0 if the vertex i has
-	// not been enqueued yet and 1 if the vertex has been visited
+	// not been enqueued yet and the id of the processor if the task was enqueued in the ready dequeue of the latter
 	private ArrayList<Integer> enqueuedVertices;
 	
 	// Array that stores all the tasks that can be stolen
