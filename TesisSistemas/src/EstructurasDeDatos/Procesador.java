@@ -158,6 +158,9 @@ public class Procesador extends Thread{
 		return vertexSet;
 	}
 	
+	/**
+	 * Start method for a processor
+	 */
 	public void start()
 	{
 		if (this.id==0)
