@@ -31,6 +31,9 @@ public class MultithreadedComputation {
 	// Flag variable that indicates if a processor wants to steal a Vertex
 	private Boolean processorWantsToSteal;
 	
+	// Id of the processor that wants to steal a task
+	private Integer idProcessorWantsToSteal;
+	
 	// Flag variable that indicates if there is a vertex/task to be stolen
 	private Boolean availableVertexToSteal;
 
@@ -50,6 +53,7 @@ public class MultithreadedComputation {
 		visitedVertices = new ArrayList<Integer>();
 		vertexToSteal = -1;
 		processorWantsToSteal = false;
+		idProcessorWantsToSteal = -1;
 		availableVertexToSteal = false;
 		longestPath = new LongestPathDAG(G);
 		priorityVertices = new ArrayList<Integer>();
@@ -111,10 +115,11 @@ public class MultithreadedComputation {
 	 * Returns a vertex/task that can be stolen
 	 * @return The vertex/task to be stolen
 	 */
-	public synchronized Integer stealVertex()
+	public synchronized Integer stealVertex(Integer id)
 	{	
-		// Indicate that there is a processor that wants to steal a vertex/task
-		processorWantsToSteal = true;
+		// Set the If of the processor that wants to steal a task
+		idProcessorWantsToSteal = id;
+		
 		// While there is not vertex/task to steal processor waits
 		while (availableVertexToSteal == false)
 		{
@@ -125,7 +130,7 @@ public class MultithreadedComputation {
 			}
 		}
 		// When available the vertex/task is assigned to the processor
-		processorWantsToSteal = false;
+		idProcessorWantsToSteal = -1;
 		availableVertexToSteal = false;
 		return vertexToSteal;
 		
@@ -137,8 +142,8 @@ public class MultithreadedComputation {
 	 */
 	public synchronized void setVertexToSteal( Integer vertex )
 	{
-			vertexToSteal = vertex;
-			availableVertexToSteal =  true;
+		vertexToSteal = vertex;
+		availableVertexToSteal =  true;
 	}
 	
 
@@ -148,8 +153,8 @@ public class MultithreadedComputation {
 		return availableVertexToSteal;
 	}
 	
-	public Boolean getProcessorWantsToSteal() {
-		return processorWantsToSteal;
+	public Integer getIdProcessorWantsToSteal() {
+		return idProcessorWantsToSteal;
 	}
 
 	public ArrayList<Integer> getEnqueuedVertices() {

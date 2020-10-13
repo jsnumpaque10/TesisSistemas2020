@@ -117,7 +117,7 @@ public class Procesador extends Thread{
 	{
 		if (computation.numberOfVisitedVertices()!=computation.getNumberVerticesG())
 		{
-			readyDequeue.add(computation.stealVertex());
+			readyDequeue.add(computation.stealVertex(this.id));
 			this.visitVertex(readyDequeue.size()-1);
 		}
 	}
