@@ -48,6 +48,7 @@ public class MultithreadedComputation {
 		numberVerticesG = G.V();
 		incidentVertices = new ArrayList<Integer>();
 		visitedVertices = new ArrayList<Integer>();
+		enqueuedVertices = new ArrayList<Integer>();
 		vertexToSteal = -1;
 		idProcessorWantsToSteal = -1;
 		availableVertexToSteal = false;
