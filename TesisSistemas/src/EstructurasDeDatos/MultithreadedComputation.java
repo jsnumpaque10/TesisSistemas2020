@@ -28,9 +28,6 @@ public class MultithreadedComputation {
 	// Array that stores all the tasks that can be stolen
 	private Integer vertexToSteal;
 	
-	// Flag variable that indicates if a processor wants to steal a Vertex
-	private Boolean processorWantsToSteal;
-	
 	// Id of the processor that wants to steal a task
 	private Integer idProcessorWantsToSteal;
 	
@@ -52,7 +49,6 @@ public class MultithreadedComputation {
 		incidentVertices = new ArrayList<Integer>();
 		visitedVertices = new ArrayList<Integer>();
 		vertexToSteal = -1;
-		processorWantsToSteal = false;
 		idProcessorWantsToSteal = -1;
 		availableVertexToSteal = false;
 		longestPath = new LongestPathDAG(G);
