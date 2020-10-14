@@ -40,7 +40,7 @@ public class main {
 		Integer lastVertex = G.V()-1;
 		LongestPathDAG longestPath = new LongestPathDAG(G);
 		System.out.println("The longest path between the vertex "+ initialVertex + " and the vertex "+ lastVertex +" has length: "+ longestPath.calculateLongestPathLengthFromVertex(initialVertex)+".");
-		Controller controlllerOfComputation =  new Controller(G,2);
+		Controller controlllerOfComputation =  new Controller(G,1);
 		controlllerOfComputation.startExecution();
 	}
 

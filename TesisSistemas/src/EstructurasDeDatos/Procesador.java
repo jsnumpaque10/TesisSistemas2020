@@ -36,7 +36,7 @@ public class Procesador extends Thread{
 	 * If the incident vertices haven't been visited, the processor stalls.
 	 * @param vertex The vertex to be visited
 	 */
-	public void visitVertex(Integer indexVertexToVisit)
+	public void visitVertex(int indexVertexToVisit)
 	{		
 		Integer vertex = readyDequeue.get(indexVertexToVisit);
 		// vertex = -1 iff the processor's ready dequeue is empty. In this case processor begins work stealing
@@ -69,7 +69,7 @@ public class Procesador extends Thread{
 				Integer adjacentVertex = iteratorAdjacentVertices.next();
 				
 				// Prints the task that is being enqueued in the ready dequeue of the processor
-				System.out.println("Task " + adjacentVertex + " enqueued in the processor " + this.id + " ready dequeue. ");
+				System.out.println("Task " + adjacentVertex + " enqueued in the processor's " + this.id + " ready dequeue. ");
 					
 				if (readyDequeue.isEmpty() || computation.getPriorityVertices().get(adjacentVertex) >= computation.getPriorityVertices().get(readyDequeue.get(0)))
 				{
@@ -111,7 +111,7 @@ public class Procesador extends Thread{
 		// Processor checks if there is any task/vertex in its ready dequeue that can be visited. If not, begins work stealing
 		for (int i = indexVertexToVisit+1 ; i < readyDequeue.size() ; i++)
 		{
-			if (computation.getIncidentVertices().get(readyDequeue.get(i))==0)
+			if (computation.getIncidentVertices().get(readyDequeue.get(i).intValue())==0)
 			{
 				this.visitVertex(readyDequeue.get(i));
 				break;
