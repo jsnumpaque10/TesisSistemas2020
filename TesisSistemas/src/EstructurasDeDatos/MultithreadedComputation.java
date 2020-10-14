@@ -21,7 +21,7 @@ public class MultithreadedComputation {
 	// not been visited yet and 1 if the vertex has been visited
 	private ArrayList<Integer> visitedVertices;
 	
-	// Array that tells if a given vertex has been enqueued. The i-th entry equals 0 if the vertex i has
+	// Array that tells if a given vertex has been enqueued. The i-th entry equals -1 if the vertex i has
 	// not been enqueued yet and the id of the processor if the task was enqueued in the ready dequeue of the latter
 	private ArrayList<Integer> enqueuedVertices;
 	
@@ -95,17 +95,32 @@ public class MultithreadedComputation {
 	 * @param vertex The vertex that was visited
 	 * @param processor The id of the processor that visited the vertex
 	 */
-	public synchronized void updateVisitedVertices(Integer vertex, int processor) {
-		visitedVertices.set(vertex, 1);
+	public synchronized ArrayList<Integer> updateVisitedVertices(Integer vertex, int processor) {
+		
+		// The array that stores the vertices that are going to be enqueued by the processor
+		ArrayList<Integer> verticesToEnqueue = new ArrayList<>();
+		
+		// Vertex marked as visited
+		visitedVertices.set(vertex.intValue(), 1);
+		
 		Bag<Integer> adjacentVertices = (Bag<Integer>) G.adj(vertex);
 		Iterator<Integer> iteratorAdjacentVertices = adjacentVertices.iterator();
 		while(iteratorAdjacentVertices.hasNext())
 		{
 			Integer adjacentVertex = iteratorAdjacentVertices.next();
-			incidentVertices.set(adjacentVertex, incidentVertices.get(adjacentVertex)-1);
-			enqueuedVertices.set(adjacentVertex, processor);			
+			
+			// Update incident vertices list of the child vertices
+			incidentVertices.set(adjacentVertex.intValue(), incidentVertices.get(adjacentVertex)-1);
+			
+			// If the adjacent vertex has already been enqueued by other processor then it is not enqueued
+			if (enqueuedVertices.get(adjacentVertex.intValue()) == -1)
+			{
+				enqueuedVertices.set(adjacentVertex.intValue(), processor);
+				verticesToEnqueue.add(adjacentVertex);
+			}		
 		}
 		
+		return verticesToEnqueue;
 	}	
 	
 	/**

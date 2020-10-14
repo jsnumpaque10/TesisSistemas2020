@@ -15,9 +15,6 @@ public class Procesador extends Thread{
 	// Id of the processor
 	Integer id;
 	
-	// Array that stores the spawned task/vertices that need to be enqueued
-	ArrayList<Integer> verticesToEnqueue;
-	
 	// Ready dequeue of the processor which will be ordered by priority of the vertices/tasks
 	ArrayList <Integer> readyDequeue;
 	
@@ -30,7 +27,6 @@ public class Procesador extends Thread{
 		
 		computation =pComputation;
 		id = pId;
-		verticesToEnqueue = new ArrayList<Integer>();
 		readyDequeue = new ArrayList<Integer>();
 	}
 	
@@ -55,41 +51,46 @@ public class Procesador extends Thread{
 		else if (computation.getIncidentVertices().get(vertex) == 0)
 		{
 			// Prints the id of the processor and the vertex/task that has visited/completed
-			System.out.println("Processor " + this.id + " has completed task " + vertex + ".");
+			System.out.println("Processor " + this.id + " has visited vertex " + vertex);
 			
 			// Remove vertex from the ready dequeue of the processor
 			readyDequeue.remove(indexVertexToVisit);
 			
 			// Update visitedVertices, incidentVertices and enqueuedVertices arrays in computation so that the vertex/task appears as visited/completed
-			// Enqueue spawned tasks in the ready dequeue of the processor if exist and haven't been enqueued in other processor's ready dequeue
-			verticesToEnqueue = computation.updateVisitedVertices(vertex,this.id);
+			computation.updateVisitedVertices(vertex,this.id);
 			
-			for (int i = 0 ; i < verticesToEnqueue.size() ; i++)
+			// Enqueue spawned tasks in the ready dequeue of the processor if exist
+			Bag<Integer> adjacentVertices = (Bag<Integer>) computation.getG().adj(vertex);
+			Iterator<Integer> iteratorAdjacentVertices = adjacentVertices.iterator();
+			
+			while(iteratorAdjacentVertices.hasNext())
 			{
-				Integer adjacentVertex = verticesToEnqueue.get(i);
+
+				Integer adjacentVertex = iteratorAdjacentVertices.next();
 				
 				// Prints the task that is being enqueued in the ready dequeue of the processor
 				System.out.println("Task " + adjacentVertex + " enqueued in the processor's " + this.id + " ready dequeue. ");
 					
-				if (readyDequeue.isEmpty() || computation.getPriorityVertices().get(adjacentVertex.intValue()) >= computation.getPriorityVertices().get(readyDequeue.get(0).intValue()))
+				if (readyDequeue.isEmpty() || computation.getPriorityVertices().get(adjacentVertex) >= computation.getPriorityVertices().get(readyDequeue.get(0)))
 				{
 					readyDequeue.add(0, adjacentVertex);
 				}
-				else if (computation.getPriorityVertices().get(adjacentVertex.intValue()) <= computation.getPriorityVertices().get(readyDequeue.size()-1))
+				else if (computation.getPriorityVertices().get(adjacentVertex) <= computation.getPriorityVertices().get(readyDequeue.size()-1))
 				{
 					readyDequeue.add(adjacentVertex);
 				}
 				else
 				{
-					for (int j = 0 ; j < readyDequeue.size()-1 ; j++)
+					for (int i = 0 ; i < readyDequeue.size()-1 ; i++)
 					{
-						if (computation.getPriorityVertices().get(adjacentVertex.intValue()) <= computation.getPriorityVertices().get(readyDequeue.get(j).intValue()) && computation.getPriorityVertices().get(adjacentVertex.intValue()) >= computation.getPriorityVertices().get(readyDequeue.get(j+1).intValue()))
+						if (computation.getPriorityVertices().get(adjacentVertex) <= computation.getPriorityVertices().get(readyDequeue.get(i)) && computation.getPriorityVertices().get(adjacentVertex) >= computation.getPriorityVertices().get(readyDequeue.get(i+1)))
 						{
-							readyDequeue.add(j+1, adjacentVertex);
+							readyDequeue.add(i+1, adjacentVertex);
 							break;
 						}
 					}
 				}			
+
 			}
 		}
 		else
@@ -112,7 +113,7 @@ public class Procesador extends Thread{
 		{
 			if (computation.getIncidentVertices().get(readyDequeue.get(i).intValue())==0)
 			{
-				this.visitVertex(i);
+				this.visitVertex(readyDequeue.get(i));
 				break;
 			}
 			else if (i == readyDequeue.size()-1)

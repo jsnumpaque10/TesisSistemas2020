@@ -28,7 +28,7 @@ public class Controller {
 		{
 			workStealingController.addProcessor(new Procesador(multithreadedComputation,i));
 			
-			System.out.println("Processor with Id " + i + " has been created.");
+			System.out.println("Processor with id " + i + " has been created.");
 		}
 		
 		processors = workStealingController.getProcessors();
