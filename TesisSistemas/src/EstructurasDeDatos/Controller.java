@@ -36,9 +36,7 @@ public class Controller {
 	// Beginning of the execution
 	
 	public void startExecution()
-	{
-		long startTime = System.nanoTime();
-		
+	{	
 		// Starts each one of the processors
 		for ( int i = 0 ; i < processors.size(); i++)
 		{
@@ -59,13 +57,6 @@ public class Controller {
 
 		}
 		
-
-		
-		long stopTime = System.nanoTime();
-		
-		//Prints the total time of execution of the computation
-		long totalExecutionTime = stopTime - startTime;
-		System.out.println("The total execution time of the computation was: " + totalExecutionTime + " nanoseconds.");
 	}
 
 }

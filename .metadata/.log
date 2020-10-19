@@ -1388,3 +1388,15 @@ Caused by: org.eclipse.jgit.errors.TransportException: https://github.com/jsnump
 
 !ENTRY org.eclipse.ui 4 4 2020-10-19 16:51:35.974
 !MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@29c5db5a} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-10-19 17:58:46.604
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@29c5db5a} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-10-19 17:58:46.759
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@29c5db5a} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-10-19 18:27:02.114
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@29c5db5a} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-10-19 18:27:02.284
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@29c5db5a} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
