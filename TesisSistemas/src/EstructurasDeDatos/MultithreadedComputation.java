@@ -143,7 +143,7 @@ public class MultithreadedComputation {
 		}
 		
 		// Prints the id and the task that had been stolen by the processor
-		System.out.println("Processor " + idProcessorWantsToSteal + " steals task/vertex " + this.vertexToSteal);
+		System.out.println("Processor " + idProcessorWantsToSteal + " steals task/vertex: " + this.vertexToSteal);
 		
 		// When available the vertex/task is assigned to the processor
 		idProcessorWantsToSteal = -1;

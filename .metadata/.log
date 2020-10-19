@@ -1359,3 +1359,32 @@ Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: Could not find
 
 !ENTRY org.eclipse.ui 4 4 2020-10-19 13:21:38.300
 !MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.egit.core 4 0 2020-10-19 13:22:49.499
+!MESSAGE An exception occurred during push on URI https://github.com/jsnumpaque10/TesisSistemas2020: https://github.com/jsnumpaque10/TesisSistemas2020: not authorized
+!STACK 0
+org.eclipse.jgit.api.errors.TransportException: https://github.com/jsnumpaque10/TesisSistemas2020: not authorized
+	at org.eclipse.jgit.api.PushCommand.call(PushCommand.java:169)
+	at org.eclipse.egit.core.op.PushOperation.run(PushOperation.java:217)
+	at org.eclipse.egit.ui.internal.push.PushOperationUI.execute(PushOperationUI.java:167)
+	at org.eclipse.egit.ui.internal.push.PushOperationUI$1.run(PushOperationUI.java:229)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: org.eclipse.jgit.errors.TransportException: https://github.com/jsnumpaque10/TesisSistemas2020: not authorized
+	at org.eclipse.jgit.transport.TransportHttp.connect(TransportHttp.java:491)
+	at org.eclipse.jgit.transport.TransportHttp.openPush(TransportHttp.java:379)
+	at org.eclipse.jgit.transport.PushProcess.execute(PushProcess.java:155)
+	at org.eclipse.jgit.transport.Transport.push(Transport.java:1250)
+	at org.eclipse.jgit.api.PushCommand.call(PushCommand.java:158)
+	... 4 more
+
+!ENTRY org.eclipse.ui 4 4 2020-10-19 14:14:29.275
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@29c5db5a} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 2 2 2020-10-19 15:36:59.839
+!MESSAGE Invalid preference category path: org.eclipse.wst.jsdt.ui.preferences.JavaBasePreferencePage (bundle: org.eclipse.wst.jsdt.debug.ui, page: org.eclipse.wst.jsdt.debug.ui.debug.page)
+
+!ENTRY org.eclipse.ui 4 4 2020-10-19 16:51:31.901
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@29c5db5a} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-10-19 16:51:35.974
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@29c5db5a} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}

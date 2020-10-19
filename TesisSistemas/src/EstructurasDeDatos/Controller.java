@@ -1,7 +1,5 @@
 package EstructurasDeDatos;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import edu.princeton.cs.algs4.Digraph;
@@ -44,13 +42,24 @@ public class Controller {
 		// Starts each one of the processors
 		for ( int i = 0 ; i < processors.size(); i++)
 		{
-			//Notifies that each processor has started its execution
-			System.out.println("Processor " + i + " has started the execution.");
-			processors.get(i).start();
+			if(i == 0)
+			{
+				//Notifies that each processor has started its execution
+				System.out.println("Processor " + i + " has started the execution.");
+				// Starts the work stealing controller
+				workStealingController.start();
+				processors.get(i).start();
+			}
+			else
+			{
+				//Notifies that each processor has started its execution
+				System.out.println("Processor " + i + " has started the execution.");
+				processors.get(i).start();
+			}
+
 		}
 		
-		// Starts the work stealing controller
-		workStealingController.start();
+
 		
 		long stopTime = System.nanoTime();
 		
