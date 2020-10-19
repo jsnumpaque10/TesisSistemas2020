@@ -39,7 +39,7 @@ public class Controller {
 	
 	public void startExecution()
 	{
-		long start = System.currentTimeMillis();
+		long startTime = System.nanoTime();
 		
 		// Starts each one of the processors
 		for ( int i = 0 ; i < processors.size(); i++)
@@ -48,14 +48,15 @@ public class Controller {
 			System.out.println("Processor " + i + " has started the execution.");
 			processors.get(i).start();
 		}
+		
 		// Starts the work stealing controller
 		workStealingController.start();
 		
-		long end = System.currentTimeMillis();
-		NumberFormat formatter = new DecimalFormat("#0.00000");
+		long stopTime = System.nanoTime();
 		
 		//Prints the total time of execution of the computation
-		System.out.print("Execution time was " + formatter.format((end - start) / 1000d) + " seconds");
+		long totalExecutionTime = stopTime - startTime;
+		System.out.println("The total execution time of the computation was: " + totalExecutionTime + " nanoseconds.");
 	}
 
 }
