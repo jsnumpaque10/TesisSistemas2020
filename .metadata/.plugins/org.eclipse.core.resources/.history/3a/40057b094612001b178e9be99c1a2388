@@ -42,69 +42,63 @@ public class Procesador extends Thread{
 	 */
 	public void visitVertex(int indexVertexToVisit)
 	{		
-		if (readyDequeue.isEmpty())
+		Integer vertex = readyDequeue.get(indexVertexToVisit);
+		// vertex = -1 iff the processor's ready dequeue is empty. In this case processor begins work stealing
+		if (vertex == -1)
 		{
 			//Prints the state of the processor 
 			System.out.println("Processor's "+ this.id + " ready dequeue is empty.");
 			
 			this.steal();
 		}
+		// Visits the vertex if all of its predecessors have been visited, else the processor stalls. 
+		else if (computation.getIncidentVertices().get(vertex) == 0)
+		{
+			// Prints the id of the processor and the vertex/task that has visited/completed
+			System.out.println("Processor " + this.id + " has completed task " + vertex + ".");
+			
+			// Remove vertex from the ready dequeue of the processor
+			readyDequeue.remove(indexVertexToVisit);
+			
+			// Update visitedVertices, incidentVertices and enqueuedVertices arrays in computation so that the vertex/task appears as visited/completed
+			// Enqueue spawned tasks in the ready dequeue of the processor if exist and haven't been enqueued in other processor's ready dequeue
+			verticesToEnqueue = computation.updateVisitedVertices(vertex,this.id);
+			
+			for (int i = 0 ; i < verticesToEnqueue.size() ; i++)
+			{
+				Integer adjacentVertex = verticesToEnqueue.get(i);
+				
+				// Prints the task that is being enqueued in the ready dequeue of the processor
+				System.out.println("Task " + adjacentVertex + " enqueued in the processor's " + this.id + " ready dequeue. ");
+					
+				if (readyDequeue.isEmpty() || computation.getPriorityVertices().get(adjacentVertex.intValue()) >= computation.getPriorityVertices().get(readyDequeue.get(0).intValue()))
+				{
+					readyDequeue.add(0, adjacentVertex);
+				}
+				else if (computation.getPriorityVertices().get(adjacentVertex.intValue()) <= computation.getPriorityVertices().get(readyDequeue.size()-1))
+				{
+					readyDequeue.add(adjacentVertex);
+				}
+				else
+				{
+					for (int j = 0 ; j < readyDequeue.size()-1 ; j++)
+					{
+						if (computation.getPriorityVertices().get(adjacentVertex.intValue()) <= computation.getPriorityVertices().get(readyDequeue.get(j).intValue()) && computation.getPriorityVertices().get(adjacentVertex.intValue()) >= computation.getPriorityVertices().get(readyDequeue.get(j+1).intValue()))
+						{
+							readyDequeue.add(j+1, adjacentVertex);
+							break;
+						}
+					}
+				}			
+			}
+		}
 		else
 		{
-			Integer vertex = readyDequeue.get(indexVertexToVisit);
+			//Prints the state of the processor 
+			System.out.println("Processor " + this.id + " has stalled.");
 			
-			// Visits the vertex if all of its predecessors have been visited, else the processor stalls. 
-			
-			if (computation.getIncidentVertices().get(vertex) == 0)
-			{
-				
-				// Remove vertex from the ready dequeue of the processor
-				readyDequeue.remove(indexVertexToVisit);
-				
-				// Prints the id of the processor and the vertex/task that has visited/completed
-				System.out.println("Processor " + this.id + " has completed task " + vertex + ".");
-
-				// Update visitedVertices, incidentVertices and enqueuedVertices arrays in computation so that the vertex/task appears as visited/completed
-				// Enqueue spawned tasks in the ready dequeue of the processor if exist and haven't been enqueued in other processor's ready dequeue
-				verticesToEnqueue = computation.updateVisitedVertices(vertex,this.id);
-				
-				for (int i = 0 ; i < verticesToEnqueue.size() ; i++)
-				{
-					Integer adjacentVertex = verticesToEnqueue.get(i);
-					
-					// Prints the task that is being enqueued in the ready dequeue of the processor
-					System.out.println("Task " + adjacentVertex + " enqueued in the processor's " + this.id + " ready dequeue. ");
-						
-					if (readyDequeue.isEmpty() || computation.getPriorityVertices().get(adjacentVertex.intValue()) >= computation.getPriorityVertices().get(readyDequeue.get(0).intValue()))
-					{
-						readyDequeue.add(0, adjacentVertex);
-					}
-					else if (computation.getPriorityVertices().get(adjacentVertex.intValue()) <= computation.getPriorityVertices().get(readyDequeue.size()-1))
-					{
-						readyDequeue.add(adjacentVertex);
-					}
-					else
-					{
-						for (int j = 0 ; j < readyDequeue.size()-1 ; j++)
-						{
-							if (computation.getPriorityVertices().get(adjacentVertex.intValue()) <= computation.getPriorityVertices().get(readyDequeue.get(j).intValue()) && computation.getPriorityVertices().get(adjacentVertex.intValue()) >= computation.getPriorityVertices().get(readyDequeue.get(j+1).intValue()))
-							{
-								readyDequeue.add(j+1, adjacentVertex);
-								break;
-							}
-						}
-					}			
-				}
-			}
-			else
-			{
-				//Prints the state of the processor 
-				System.out.println("Processor " + this.id + " has stalled.");
-				
-				//Processor enters in stall
-				this.stall(indexVertexToVisit);
-			}
-			
+			//Processor enters in stall
+			this.stall(indexVertexToVisit);
 		}
 	}
 	
@@ -153,7 +147,7 @@ public class Procesador extends Thread{
 		if (this.readyDequeue.size()>1)
 		{
 			// Prints the task/vertex that is being given by the processor
-			System.out.println("Processor " + this.id + " gives task " + readyDequeue.get(0) + " to steal.");
+			System.out.println("Processor " + this.id + " gives vertex " + readyDequeue.get(0) + " to steal.");
 			
 			computation.setVertexToSteal(this.readyDequeue.get(0));
 			readyDequeue.remove(0);

@@ -57,13 +57,12 @@ public class Procesador extends Thread{
 			
 			if (computation.getIncidentVertices().get(vertex) == 0)
 			{
+				// Prints the id of the processor and the vertex/task that has visited/completed
+				System.out.println("Processor " + this.id + " has completed task " + vertex + ".");
 				
 				// Remove vertex from the ready dequeue of the processor
 				readyDequeue.remove(indexVertexToVisit);
 				
-				// Prints the id of the processor and the vertex/task that has visited/completed
-				System.out.println("Processor " + this.id + " has completed task " + vertex + ".");
-
 				// Update visitedVertices, incidentVertices and enqueuedVertices arrays in computation so that the vertex/task appears as visited/completed
 				// Enqueue spawned tasks in the ready dequeue of the processor if exist and haven't been enqueued in other processor's ready dequeue
 				verticesToEnqueue = computation.updateVisitedVertices(vertex,this.id);
@@ -153,7 +152,7 @@ public class Procesador extends Thread{
 		if (this.readyDequeue.size()>1)
 		{
 			// Prints the task/vertex that is being given by the processor
-			System.out.println("Processor " + this.id + " gives task " + readyDequeue.get(0) + " to steal.");
+			System.out.println("Processor " + this.id + " gives vertex " + readyDequeue.get(0) + " to steal.");
 			
 			computation.setVertexToSteal(this.readyDequeue.get(0));
 			readyDequeue.remove(0);
