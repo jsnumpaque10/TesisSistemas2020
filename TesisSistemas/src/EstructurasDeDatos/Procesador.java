@@ -40,7 +40,7 @@ public class Procesador extends Thread{
 	 * If the incident vertices haven't been visited, the processor stalls.
 	 * @param vertex The vertex to be visited
 	 */
-	public void visitVertex(int indexVertexToVisit)
+	public synchronized void visitVertex(int indexVertexToVisit)
 	{		
 		if (readyDequeue.isEmpty())
 		{
@@ -103,8 +103,7 @@ public class Procesador extends Thread{
 				
 				//Processor enters in stall
 				this.stall(indexVertexToVisit);
-			}
-			
+			}	
 		}
 	}
 	
@@ -147,7 +146,7 @@ public class Procesador extends Thread{
 	/**
 	 * When possible, a vertex/task is given to another processor to be visited. 
 	 */
-	public boolean setVertexToSteal()
+	public synchronized boolean setVertexToSteal()
 	{
 		Boolean vertexSet = false;
 		if (this.readyDequeue.size()>1)
@@ -175,6 +174,11 @@ public class Procesador extends Thread{
 		while(computation.numberOfVisitedVertices()!= computation.getNumberVerticesG())
 		{
 			this.visitVertex(0);
+			try {
+				sleep(100);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 	}
 

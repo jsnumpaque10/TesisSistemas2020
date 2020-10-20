@@ -37,10 +37,14 @@ public class ControllerStealing extends Thread {
 				{
 					if (computation.getIdProcessorWantsToSteal().intValue()!=i && processors.get(i).setVertexToSteal())
 					{
+						try {
+							sleep(50);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
 						break;
 					}
 				}
-				
 			}
 		}
 	}
