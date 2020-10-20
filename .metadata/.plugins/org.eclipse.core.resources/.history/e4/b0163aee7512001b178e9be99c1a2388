@@ -21,9 +21,6 @@ public class Procesador extends Thread{
 	// Ready dequeue of the processor which will be ordered by priority of the vertices/tasks
 	ArrayList <Integer> readyDequeue;
 	
-	// Processor's execution time
-	long executionTime;
-	
 	/**
 	 * Constructor of the class
 	 * @param pComputation The computation that the processor is going to execute
@@ -35,7 +32,6 @@ public class Procesador extends Thread{
 		id = pId;
 		verticesToEnqueue = new ArrayList<Integer>();
 		readyDequeue = new ArrayList<Integer>();
-		executionTime=0;
 	}
 	
 	/**
@@ -106,7 +102,7 @@ public class Procesador extends Thread{
 				System.out.println("Processor " + this.id + " has stalled.");
 				
 				//Processor enters in stall
-				this.stall();
+				this.stall(indexVertexToVisit);
 			}	
 		}
 	}
@@ -114,10 +110,10 @@ public class Procesador extends Thread{
 	/**
 	 * If the processor is stalled seeks in its ready dequeue for a vertex to be visited (task to be executed), else the processor begins work stealing.
 	 */
-	private void stall() 
+	private void stall(int indexVertexToVisit) 
 	{
 		// Processor checks if there is any task/vertex in its ready dequeue that can be visited. If not, begins work stealing
-		for (int i = 0 ; i < readyDequeue.size() ; i++)
+		for (int i = indexVertexToVisit+1 ; i < readyDequeue.size() ; i++)
 		{
 			if (computation.getIncidentVertices().get(readyDequeue.get(i).intValue())==0)
 			{
@@ -142,18 +138,8 @@ public class Procesador extends Thread{
 		
 		if (computation.numberOfVisitedVertices()!=computation.getNumberVerticesG())
 		{
-			Integer stolenVertex = computation.stealVertex(this.id);
-			if (stolenVertex.intValue() != -1)
-			{
-				System.out.println("Task " + stolenVertex + " added to processor's " + this.id + " ready dequeue.");
-				readyDequeue.add(stolenVertex);
-				this.visitVertex(readyDequeue.size()-1);
-			}
-			else
-			{
-				System.out.println("Processor " + this.id + " has finished the execution.");
-			}
-
+			readyDequeue.add(computation.stealVertex(this.id));
+			this.visitVertex(readyDequeue.size()-1);
 		}
 	}
 	
@@ -181,8 +167,6 @@ public class Procesador extends Thread{
 	 */
 	public void run()
 	{
-		
-		long startTime = System.nanoTime();
 		if (this.id==0)
 		{
 			readyDequeue.add(0);
@@ -190,24 +174,7 @@ public class Procesador extends Thread{
 		while(computation.numberOfVisitedVertices()!= computation.getNumberVerticesG())
 		{
 			this.visitVertex(0);
-			try {
-				sleep(100);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
 		}
-		readyDequeue.add(-1);
-		setVertexToSteal();
-		long finishTime = System.nanoTime();
-		executionTime = finishTime-startTime;
-		System.out.println("Processor " + this.id + " has finished the execution in " + this.executionTime + " nanoseconds.");
-	}
-	
-	//Get Methods 
-	
-	public long getExecutionTime()
-	{
-		return executionTime;
 	}
 
 }
