@@ -3,7 +3,6 @@ package Main;
 import EstructurasDeDatos.LongestPathDAG;
 import EstructurasDeDatos.Controller;
 import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.DigraphGenerator;
 
 public class main {
 
@@ -37,15 +36,17 @@ public class main {
 		G.addEdge(19, 22);
 		G.addEdge(20, 21);
 		G.addEdge(21, 22);
-		Integer initialVertex = 0;
+		Integer initialVertex = 5;
 		Integer lastVertex = G.V()-1;
 		LongestPathDAG longestPath = new LongestPathDAG(G);
 		System.out.println("The longest path between the vertex "+ initialVertex + " and the vertex "+ lastVertex +" has length: "+ longestPath.calculateLongestPathLengthFromVertex(initialVertex)+".");
-		Controller controlllerOfComputation =  new Controller(G,1);
+		Controller controlllerOfComputation =  new Controller(G,2);
 		
 		//Start execution 
 		controlllerOfComputation.startExecution();
 		
+		//Prints the total execution time
+		System.out.println("The total execution time of the computation was of " + controlllerOfComputation.totalExecutionTime() + " nanoseconds.");
 	}
 
 }
