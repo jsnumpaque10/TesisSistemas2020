@@ -1,0 +1,51 @@
+package Main;
+
+import EstructurasDeDatos.LongestPathDAG;
+import EstructurasDeDatos.Controller;
+import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.DigraphGenerator;
+
+public class main {
+
+	public static void main(String[] args) {
+		Digraph G= new Digraph(23);
+		G.addEdge(0, 1);
+		G.addEdge(1, 2);
+		G.addEdge(1, 15);
+		G.addEdge(2, 5);
+		G.addEdge(2, 3);
+		G.addEdge(3, 4);
+		G.addEdge(4, 13);
+		G.addEdge(5, 6);
+		G.addEdge(5, 8);
+		G.addEdge(6, 7);
+		G.addEdge(7, 13);
+		G.addEdge(8, 12);
+		G.addEdge(8, 9);
+		G.addEdge(9, 10);
+		G.addEdge(10, 11);
+		G.addEdge(11, 14);
+		G.addEdge(12, 21);
+		G.addEdge(12, 13);
+		G.addEdge(13, 14);
+		G.addEdge(14, 22);
+		G.addEdge(15, 16);
+		G.addEdge(16, 17);
+		G.addEdge(16, 20);
+		G.addEdge(17, 18);
+		G.addEdge(18, 19);
+		G.addEdge(19, 22);
+		G.addEdge(20, 21);
+		G.addEdge(21, 22);
+		Integer initialVertex = 0;
+		Integer lastVertex = G.V()-1;
+		LongestPathDAG longestPath = new LongestPathDAG(G);
+		System.out.println("The longest path between the vertex "+ initialVertex + " and the vertex "+ lastVertex +" has length: "+ longestPath.calculateLongestPathLengthFromVertex(initialVertex)+".");
+		Controller controlllerOfComputation =  new Controller(G,1);
+		
+		//Start execution 
+		controlllerOfComputation.startExecution();
+		
+	}
+
+}
