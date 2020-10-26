@@ -41,11 +41,11 @@ public class main {
 		G.addEdge(20, 21);
 		G.addEdge(21, 22);
 		Integer initialVertex = 0;
-		Integer lastVertex = G.V()-1;
-		LongestPathDAG longestPath = new LongestPathDAG(G);
+		Integer lastVertex = H.V()-1;
+		LongestPathDAG longestPath = new LongestPathDAG(H);
 		System.out.println("The longest path between the vertex "+ initialVertex + " and the vertex "+ lastVertex +" has length: "+ longestPath.calculateLongestPathLengthFromVertex(initialVertex)+".");
 		Digraph H = dagGenerator.generateDAG();
-		Controller controlllerOfComputation =  new Controller(H,2);
+		Controller controlllerOfComputation =  new Controller(G,1);
 		
 		//Start execution 
 		controlllerOfComputation.startExecution();

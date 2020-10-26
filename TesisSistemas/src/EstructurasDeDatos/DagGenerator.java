@@ -1,5 +1,7 @@
 package EstructurasDeDatos;
 
+import java.util.Random;
+
 import edu.princeton.cs.algs4.Digraph;
 
 //Generates a random connected DAG that has the number of vertices given
@@ -24,28 +26,54 @@ public class DagGenerator {
 	 */
 	private int[][] generateAdjacencyMatrixDAG()
 	{
-		for (int i = 0; i < V-1 ; i++)
+		// Fills out the entries below the diagonal with 0's and 1's. 
+		for (int i = 0; i < V ; i++)
 		{
-			for (int j = 0; j < V ; j++)
+			for (int j = 0; j < i ; j++)
 			{
-				if (j >= i )
-				{
-					adjacencyMatrizDAG[i][j]=0;
-				}
-				else
-				{
-					double temp = Math.random();
-					if (temp<=0.5)
-					{
-						adjacencyMatrizDAG[i][j]= 0;
-					}
-					else{
-						adjacencyMatrizDAG[i][j]= 1;
-					}
+				adjacencyMatrizDAG[j][i]=0;
 
+				double temp = Math.random();
+				if (temp<=0.5)
+				{
+					adjacencyMatrizDAG[i][j]= 0;
+				}
+				else{
+					adjacencyMatrizDAG[i][j]= 1;
 				}
 			}
 		}
+		// If i!=0, the i-th row cannot be entirely of 0's. If j != V-1, the j-th column cannot be entirely of 0's.  
+		
+		for (int i = 0 ; i < V ; i++)
+		{
+			int sumRow = 0;
+			int sumColumn = 0;
+			for (int j = 0 ; j < V ; j++)
+			{
+				if (adjacencyMatrizDAG[i][j]==1)
+				{
+					sumRow += 1;
+				}
+				if (adjacencyMatrizDAG[j][i]==1)
+				{
+					sumColumn += 1;
+				}
+			}
+			if (sumRow == 0)
+			{
+				Random rand = new Random();
+				int columnWhereAdding1 = rand.nextInt(V);
+				adjacencyMatrizDAG[i][columnWhereAdding1] = 1;
+			}
+			if (sumColumn == 0)
+			{
+				Random rand = new Random();
+				int rowWhereAdding1 = rand.nextInt(V);
+				adjacencyMatrizDAG[rowWhereAdding1][i] = 1;
+			}
+		}
+		
 		return adjacencyMatrizDAG;
 	}
 	
@@ -58,9 +86,9 @@ public class DagGenerator {
 		this.generateAdjacencyMatrixDAG();
 		System.out.println("DAG sucessfully generated with adjacency matrix:");
 		Digraph G = new Digraph(V);
-		for (int i = 0 ; i < V-1 ; i++)
+		for (int i = 0 ; i < V ; i++)
 		{
-			for (int j = 0 ; j < V-1 ; j++)
+			for (int j = 0 ; j < V ; j++)
 			{
 				System.out.print(adjacencyMatrizDAG[i][j]);
 				if (adjacencyMatrizDAG[i][j] == 1)
