@@ -51,25 +51,25 @@ public class DagGenerator {
 			int sumColumn = 0;
 			for (int j = 0 ; j < V ; j++)
 			{
-				if (adjacencyMatrizDAG[i][j]==1)
+				if (i != 0 && adjacencyMatrizDAG[i][j]==1)
 				{
 					sumRow += 1;
 				}
-				if (adjacencyMatrizDAG[j][i]==1)
+				if (i != V && adjacencyMatrizDAG[j][i]==1)
 				{
 					sumColumn += 1;
 				}
 			}
-			if (i != 0 && sumRow == 0)
+			if (sumRow == 0)
 			{
 				Random rand = new Random();
-				int columnWhereAdding1 = rand.nextInt(i);
+				int columnWhereAdding1 = rand.nextInt(V);
 				adjacencyMatrizDAG[i][columnWhereAdding1] = 1;
 			}
-			if (i != V-1 && sumColumn == 0)
+			if (sumColumn == 0)
 			{
 				Random rand = new Random();
-				int rowWhereAdding1 = rand.nextInt(V-1-i)+(i+1);
+				int rowWhereAdding1 = rand.nextInt(V);
 				adjacencyMatrizDAG[rowWhereAdding1][i] = 1;
 			}
 		}
