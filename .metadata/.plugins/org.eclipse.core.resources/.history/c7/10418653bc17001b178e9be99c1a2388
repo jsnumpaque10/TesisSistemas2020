@@ -1,7 +1,5 @@
 package EstructurasDeDatos;
 
-import java.util.Random;
-
 import edu.princeton.cs.algs4.Digraph;
 
 //Generates a random connected DAG that has the number of vertices given
@@ -26,51 +24,22 @@ public class DagGenerator {
 	 */
 	private int[][] generateAdjacencyMatrixDAG()
 	{
-		// Fills out the entries below the diagonal with 0's and 1's. 
+		// Fills out the entries below the diagonal with 0's and 1's. If i!=0, the i-th row cannot be entirely of 0's. 
+		// If j != V-1, the j-th column cannot be entirely of 0's.  
 		for (int i = 0; i < V ; i++)
 		{
 			for (int j = 0; j < i ; j++)
 			{
 				adjacencyMatrizDAG[j][i]=0;
 
-				double temp = Math.random();
-				if (temp<=0.5)
-				{
-					adjacencyMatrizDAG[i][j]= 0;
-				}
-				else{
-					adjacencyMatrizDAG[i][j]= 1;
-				}
-			}
-		}
-		// If i!=0, the i-th row cannot be entirely of 0's. If j != V-1, the j-th column cannot be entirely of 0's.  
-		
-		for (int i = 0 ; i < V ; i++)
-		{
-			int sumRow = 0;
-			int sumColumn = 0;
-			for (int j = 0 ; j < V ; j++)
-			{
-				if (i != 0 && adjacencyMatrizDAG[i][j]==1)
-				{
-					sumRow += 1;
-				}
-				if (i != V && adjacencyMatrizDAG[j][i]==1)
-				{
-					sumColumn += 1;
-				}
-			}
-			if (sumRow == 0)
-			{
-				Random rand = new Random();
-				int columnWhereAdding1 = rand.nextInt(V);
-				adjacencyMatrizDAG[i][columnWhereAdding1] = 1;
-			}
-			if (sumColumn == 0)
-			{
-				Random rand = new Random();
-				int rowWhereAdding1 = rand.nextInt(V);
-				adjacencyMatrizDAG[rowWhereAdding1][i] = 1;
+					double temp = Math.random();
+					if (temp<=0.5)
+					{
+						adjacencyMatrizDAG[i][j]= 0;
+					}
+					else{
+						adjacencyMatrizDAG[i][j]= 1;
+					}
 			}
 		}
 		
