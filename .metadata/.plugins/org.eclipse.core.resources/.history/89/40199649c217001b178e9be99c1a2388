@@ -45,7 +45,7 @@ public class DagGenerator {
 		}
 		// If i!=0, the i-th row cannot be entirely of 0's. If j != V-1, the j-th column cannot be entirely of 0's.  
 		
-		for (int i = 0 ; i < V ; i++)
+		for (int i = 1 ; i < V-1 ; i++)
 		{
 			int sumRow = 0;
 			int sumColumn = 0;
@@ -60,16 +60,16 @@ public class DagGenerator {
 					sumColumn += 1;
 				}
 			}
-			if (i != 0 && sumRow == 0)
+			if (sumRow == 0)
 			{
 				Random rand = new Random();
-				int columnWhereAdding1 = rand.nextInt(i);
+				int columnWhereAdding1 = rand.nextInt(V);
 				adjacencyMatrizDAG[i][columnWhereAdding1] = 1;
 			}
-			if (i != V-1 && sumColumn == 0)
+			if (sumColumn == 0)
 			{
 				Random rand = new Random();
-				int rowWhereAdding1 = rand.nextInt(V-i)+i;
+				int rowWhereAdding1 = rand.nextInt(V);
 				adjacencyMatrizDAG[rowWhereAdding1][i] = 1;
 			}
 		}
