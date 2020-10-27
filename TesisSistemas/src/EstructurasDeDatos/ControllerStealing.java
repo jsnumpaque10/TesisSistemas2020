@@ -31,14 +31,18 @@ public class ControllerStealing extends Thread {
 	{
 		while(computation.numberOfVisitedVertices()!= computation.getNumberVerticesG())
 		{
-			if (computation.getIdProcessorWantsToSteal() != -1)
+			if(computation.getNumberOfProcessorsStealing() == processors.size())
+			{
+				computation.setVertexToSteal(-2);
+			}
+			else if (computation.getNumberOfProcessorsStealing() != 0)
 			{
 				for (int i=0 ; i< processors.size(); i++)
 				{
-					if (computation.getIdProcessorWantsToSteal().intValue()!=i && processors.get(i).setVertexToSteal())
+					if (processors.get(i).getIsStealing() == false && processors.get(i).setVertexToSteal())
 					{
 						try {
-							sleep(50);
+							sleep(500);
 						} catch (Exception e) {
 							// TODO: handle exception
 						}

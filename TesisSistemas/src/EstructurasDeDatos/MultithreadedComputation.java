@@ -25,6 +25,10 @@ public class MultithreadedComputation {
 	// not been enqueued yet and the id of the processor if the task was enqueued in the ready dequeue of the latter
 	private ArrayList<Integer> enqueuedVertices;
 	
+	// Counts the number o of processors that are stealing
+	
+	private int numberOfProcessorsStealing; 
+	
 	// Array that stores all the tasks that can be stolen
 	private Integer vertexToSteal;
 	
@@ -49,6 +53,7 @@ public class MultithreadedComputation {
 		incidentVertices = new ArrayList<Integer>();
 		visitedVertices = new ArrayList<Integer>();
 		enqueuedVertices = new ArrayList<Integer>();
+		numberOfProcessorsStealing = 0;
 		vertexToSteal = -1;
 		idProcessorWantsToSteal = -1;
 		availableVertexToSteal = false;
@@ -129,26 +134,22 @@ public class MultithreadedComputation {
 	 */
 	public synchronized Integer stealVertex(Integer id)
 	{	
-		// Set the Id of the processor that wants to steal a task
-		idProcessorWantsToSteal = id;
+		numberOfProcessorsStealing ++;
+		System.out.println("The number of processors stealing is: " + this.numberOfProcessorsStealing +".");
 		
 		// While there is not vertex/task to steal processor waits
 		while (availableVertexToSteal == false)
 		{
 			try {
-				System.out.println("Processor " + idProcessorWantsToSteal + " is looking for a vertex to steal.");
+				System.out.println("Processor " + id + " is looking for a vertex to steal.");
 				wait();
 			} catch (InterruptedException e) {
 				// TODO: handle exception
 			}
-
 		}
 		
-		// Prints the id and the task that had been stolen by the processor
-		System.out.println("Processor " + idProcessorWantsToSteal + " steals task " + this.vertexToSteal + ".");
-		
 		// When available the vertex/task is assigned to the processor
-		idProcessorWantsToSteal = -1;
+		numberOfProcessorsStealing = numberOfProcessorsStealing -1;
 		availableVertexToSteal = false;
 		return vertexToSteal;
 		
@@ -162,8 +163,18 @@ public class MultithreadedComputation {
 	{
 		vertexToSteal = vertex;
 		availableVertexToSteal =  true;
-		notify();
+		notifyAll();
 	}
+	
+	/**
+	 * Processor with a given id is added to the processors wanting to steal queue. 
+	 * @param idProcesador which is the id of the processor that wants to steal.  
+	 */
+	public synchronized void enqueueForStealing( Integer idProcesador )
+	{
+		enqueuedVertices.add(idProcesador);
+	}
+
 	
 
 	// Get methods
@@ -192,6 +203,11 @@ public class MultithreadedComputation {
 
 	public ArrayList<Integer> getPriorityVertices() {
 		return priorityVertices;
+	}
+	
+	public int getNumberOfProcessorsStealing()
+	{
+		return numberOfProcessorsStealing;
 	}
 	
 	public int getNumberVerticesG() {

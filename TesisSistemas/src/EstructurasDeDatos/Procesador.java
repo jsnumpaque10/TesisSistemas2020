@@ -21,6 +21,8 @@ public class Procesador extends Thread{
 	// Ready dequeue of the processor which will be ordered by priority of the vertices/tasks
 	ArrayList <Integer> readyDequeue;
 	
+	private Boolean isStealing;
+	
 	// Processor's execution time
 	long executionTime;
 	
@@ -33,6 +35,7 @@ public class Procesador extends Thread{
 		
 		computation =pComputation;
 		id = pId;
+		isStealing = false;
 		verticesToEnqueue = new ArrayList<Integer>();
 		readyDequeue = new ArrayList<Integer>();
 		executionTime=0;
@@ -139,15 +142,24 @@ public class Procesador extends Thread{
 	{
 		// Prints the state of the processor 
 		System.out.println("Processor " + this.id + " is work stealing.");
+		this.isStealing = true;
 		
 		if (computation.numberOfVisitedVertices()!=computation.getNumberVerticesG())
 		{
 			Integer stolenVertex = computation.stealVertex(this.id);
-			if (stolenVertex.intValue() != -1)
+			
+			// Prints the id and the task that had been stolen by the processor
+			System.out.println("Processor " + this.id + " steals task " + stolenVertex + ".");
+			
+			if (stolenVertex.intValue() != -1 && stolenVertex.intValue() != -2)
 			{
 				System.out.println("Task " + stolenVertex + " added to processor's " + this.id + " ready dequeue.");
 				readyDequeue.add(stolenVertex);
 				this.visitVertex(readyDequeue.size()-1);
+			}
+			else if (stolenVertex.intValue() == -2)
+			{
+				this.visitVertex(0);
 			}
 			else
 			{
@@ -155,6 +167,7 @@ public class Procesador extends Thread{
 			}
 
 		}
+		this.isStealing=false;
 	}
 	
 	/**
@@ -190,20 +203,26 @@ public class Procesador extends Thread{
 		while(computation.numberOfVisitedVertices()!= computation.getNumberVerticesG())
 		{
 			this.visitVertex(0);
+			System.out.println("Number of completed tasks is " + computation.numberOfVisitedVertices()+".");
 			try {
-				sleep(100);
+				sleep(150);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 		}
 		readyDequeue.add(-1);
-		setVertexToSteal();
+		this.setVertexToSteal();
 		long finishTime = System.nanoTime();
 		executionTime = finishTime-startTime;
 		System.out.println("Processor " + this.id + " has finished the execution in " + this.executionTime + " nanoseconds.");
 	}
 	
 	//Get Methods 
+	
+	public Boolean getIsStealing()
+	{
+		return this.isStealing;
+	}
 	
 	public long getExecutionTime()
 	{
