@@ -1,16 +1,14 @@
 package Main;
 
-import EstructurasDeDatos.LongestPathDAG;
 import EstructurasDeDatos.Controller;
 import EstructurasDeDatos.DagGenerator;
 import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.DigraphGenerator;
 
 public class main {
 
 	public static void main(String[] args) {
 		// Creates the DAG generator 
-		DagGenerator dagGenerator = new DagGenerator(40);
+		DagGenerator dagGenerator = new DagGenerator(50);
 		Digraph H = dagGenerator.generateDAG();
 		
 		// Creates the controller of the execution

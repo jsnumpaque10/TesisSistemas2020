@@ -18,7 +18,7 @@ public class Controller {
 	
 	public Controller (Digraph pG, int numberOfProcessors)
 	{
-		multithreadedComputation = new MultithreadedComputation(pG);
+		multithreadedComputation = new MultithreadedComputation(pG,numberOfProcessors);
 		workStealingController = new ControllerStealing(multithreadedComputation);
 
 		//Create and store the processors
@@ -45,6 +45,7 @@ public class Controller {
 				//Notifies that each processor has started its execution
 				System.out.println("Processor " + i + " has started the execution.");
 				// Starts the work stealing controller
+				System.out.println("Work stealing controller has started execution. ");
 				workStealingController.start();
 				processors.get(i).start();
 			}

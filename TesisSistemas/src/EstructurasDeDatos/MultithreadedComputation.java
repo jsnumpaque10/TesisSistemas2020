@@ -14,6 +14,9 @@ public class MultithreadedComputation {
 	// Number of tasks/vertices of the multithreaded computation
 	private int numberVerticesG; 
 	
+	// Number of processors executing the computation
+	private int numberOfProcessors;
+	
 	// Array that stores, for each vertex, the number of incident vertices that have been visited
 	private ArrayList<Integer> incidentVertices;
 	
@@ -32,9 +35,6 @@ public class MultithreadedComputation {
 	// Array that stores all the tasks that can be stolen
 	private Integer vertexToSteal;
 	
-	// Id of the processor that wants to steal a task
-	private Integer idProcessorWantsToSteal;
-	
 	// Flag variable that indicates if there is a vertex/task to be stolen
 	private Boolean availableVertexToSteal;
 
@@ -46,16 +46,16 @@ public class MultithreadedComputation {
 
 	
 	
-	public MultithreadedComputation(Digraph pG)
+	public MultithreadedComputation(Digraph pG, int pNumberOfProcessors)
 	{
 		G = pG ;
 		numberVerticesG = G.V();
 		incidentVertices = new ArrayList<Integer>();
 		visitedVertices = new ArrayList<Integer>();
 		enqueuedVertices = new ArrayList<Integer>();
+		numberOfProcessors = 0;
 		numberOfProcessorsStealing = 0;
 		vertexToSteal = -1;
-		idProcessorWantsToSteal = -1;
 		availableVertexToSteal = false;
 		longestPath = new LongestPathDAG(G);
 		priorityVertices = new ArrayList<Integer>();
@@ -73,12 +73,15 @@ public class MultithreadedComputation {
 			enqueuedVertices.add(-1);
 		}
 		
+		long startTime = System.nanoTime();
 		//Fill each priorityVertices array entry with its corresponding vertex priority
 		for (int v = 0; v < numberVerticesG ; v++ )
 		{
 			priorityVertices.add(longestPath.calculateLongestPathLengthFromVertex(v));
 		}	
-		
+		long finishTime = System.nanoTime();
+		long executionTime = finishTime-startTime;
+		System.out.println("Priority of vertices calculated in " + executionTime + " nanoseconds.");
 	}
 	
 	/**
@@ -140,11 +143,23 @@ public class MultithreadedComputation {
 		// While there is not vertex/task to steal processor waits
 		while (availableVertexToSteal == false)
 		{
-			try {
-				System.out.println("Processor " + id + " is looking for a vertex to steal.");
-				wait();
-			} catch (InterruptedException e) {
-				// TODO: handle exception
+			if (this.numberOfProcessorsStealing == this.numberOfProcessors)
+			{
+				numberOfProcessorsStealing = numberOfProcessorsStealing -1;
+				return -2;
+			}
+			else if (this.numberOfVisitedVertices() == numberVerticesG)
+			{
+				numberOfProcessorsStealing = numberOfProcessorsStealing -1;
+				return -1;
+			}
+			else{
+				try {
+					System.out.println("Processor " + id + " is looking for a vertex to steal.");
+					wait(300);
+				} catch (InterruptedException e) {
+					// TODO: handle exception
+				}
 			}
 		}
 		
@@ -165,15 +180,6 @@ public class MultithreadedComputation {
 		availableVertexToSteal =  true;
 		notifyAll();
 	}
-	
-	/**
-	 * Processor with a given id is added to the processors wanting to steal queue. 
-	 * @param idProcesador which is the id of the processor that wants to steal.  
-	 */
-	public synchronized void enqueueForStealing( Integer idProcesador )
-	{
-		enqueuedVertices.add(idProcesador);
-	}
 
 	
 
@@ -181,10 +187,6 @@ public class MultithreadedComputation {
 	
 	public Boolean getAvailableVertexToSteal() {
 		return availableVertexToSteal;
-	}
-	
-	public Integer getIdProcessorWantsToSteal() {
-		return idProcessorWantsToSteal;
 	}
 
 	public ArrayList<Integer> getEnqueuedVertices() {

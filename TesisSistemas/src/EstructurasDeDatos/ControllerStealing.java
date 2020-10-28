@@ -28,7 +28,7 @@ public class ControllerStealing extends Thread {
 	}
 	
 	public void run()
-	{
+	{	
 		while(computation.numberOfVisitedVertices()!= computation.getNumberVerticesG())
 		{
 			if(computation.getNumberOfProcessorsStealing() == processors.size())
