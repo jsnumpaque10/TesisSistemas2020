@@ -1923,3 +1923,12 @@ java.lang.ClassNotFoundException: org.eclipse.wst.jsdt.internal.ui.JavaScriptPlu
 
 !ENTRY org.eclipse.ui 4 4 2020-11-02 14:37:51.303
 !MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@4af612b6} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 2 2 2020-11-02 15:14:00.995
+!MESSAGE Invalid preference category path: org.eclipse.wst.jsdt.ui.preferences.JavaBasePreferencePage (bundle: org.eclipse.wst.jsdt.debug.ui, page: org.eclipse.wst.jsdt.debug.ui.debug.page)
+
+!ENTRY org.eclipse.ui 4 4 2020-11-02 15:14:57.298
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@4af612b6} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-11-02 15:15:39.678
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@4af612b6} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
