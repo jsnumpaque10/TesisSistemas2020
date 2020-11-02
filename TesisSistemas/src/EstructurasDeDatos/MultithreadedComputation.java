@@ -144,7 +144,7 @@ public class MultithreadedComputation {
 		while (availableVertexToSteal == false)
 		{
 			if (this.numberOfProcessorsStealing == this.numberOfProcessors)
-			{
+			{ 
 				numberOfProcessorsStealing = numberOfProcessorsStealing -1;
 				return -2;
 			}
