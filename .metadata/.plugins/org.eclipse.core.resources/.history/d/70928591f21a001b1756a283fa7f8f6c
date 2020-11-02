@@ -53,7 +53,7 @@ public class MultithreadedComputation {
 		incidentVertices = new ArrayList<Integer>();
 		visitedVertices = new ArrayList<Integer>();
 		enqueuedVertices = new ArrayList<Integer>();
-		numberOfProcessors = pNumberOfProcessors;
+		numberOfProcessors = 0;
 		numberOfProcessorsStealing = 0;
 		vertexToSteal = -1;
 		availableVertexToSteal = false;
@@ -144,12 +144,7 @@ public class MultithreadedComputation {
 		while (availableVertexToSteal == false)
 		{
 			if (this.numberOfProcessorsStealing == this.numberOfProcessors)
-			{ 
-				try {
-					wait(300);
-				} catch (InterruptedException e) {
-					// TODO: handle exception
-				}
+			{
 				numberOfProcessorsStealing = numberOfProcessorsStealing -1;
 				return -2;
 			}

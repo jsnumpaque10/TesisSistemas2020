@@ -42,7 +42,7 @@ public class ControllerStealing extends Thread {
 					if (processors.get(i).getIsStealing() == false && processors.get(i).setVertexToSteal())
 					{
 						try {
-							sleep(500);
+							sleep(300);
 						} catch (Exception e) {
 							// TODO: handle exception
 						}

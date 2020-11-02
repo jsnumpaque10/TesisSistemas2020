@@ -210,8 +210,6 @@ public class Procesador extends Thread{
 				// TODO: handle exception
 			}
 		}
-		readyDequeue.add(-1);
-		this.setVertexToSteal();
 		long finishTime = System.nanoTime();
 		executionTime = finishTime-startTime;
 		System.out.println("Processor " + this.id + " has finished the execution in " + this.executionTime + " nanoseconds.");
