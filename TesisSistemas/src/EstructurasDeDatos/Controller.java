@@ -45,7 +45,7 @@ public class Controller {
 				//Notifies that each processor has started its execution
 				System.out.println("Processor " + i + " has started the execution.");
 				// Starts the work stealing controller
-				System.out.println("Work stealing controller has started execution. ");
+				System.out.println("Work stealing controller has started execution.");
 				workStealingController.start();
 				processors.get(i).start();
 			}
