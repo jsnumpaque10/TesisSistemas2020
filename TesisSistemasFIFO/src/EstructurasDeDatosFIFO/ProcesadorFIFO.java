@@ -71,33 +71,7 @@ public class ProcesadorFIFO extends Thread{
 				// Enqueue spawned tasks in the ready dequeue of the processor if exist and haven't been enqueued in other processor's ready dequeue
 				verticesToEnqueue = computation.updateVisitedVertices(vertex,this.id);
 				
-				for (int i = 0 ; i < verticesToEnqueue.size() ; i++)
-				{
-					Integer adjacentVertex = verticesToEnqueue.get(i);
-					
-					// Prints the task that is being enqueued in the ready dequeue of the processor
-					System.out.println("Task " + adjacentVertex + " enqueued in the processor's " + this.id + " ready dequeue. ");
-						
-					if (readyDequeue.isEmpty() || computation.getPriorityVertices().get(adjacentVertex.intValue()) >= computation.getPriorityVertices().get(readyDequeue.get(0).intValue()))
-					{
-						readyDequeue.add(0, adjacentVertex);
-					}
-					else if (computation.getPriorityVertices().get(adjacentVertex.intValue()) <= computation.getPriorityVertices().get(readyDequeue.size()-1))
-					{
-						readyDequeue.add(adjacentVertex);
-					}
-					else
-					{
-						for (int j = 0 ; j < readyDequeue.size()-1 ; j++)
-						{
-							if (computation.getPriorityVertices().get(adjacentVertex.intValue()) <= computation.getPriorityVertices().get(readyDequeue.get(j).intValue()) && computation.getPriorityVertices().get(adjacentVertex.intValue()) >= computation.getPriorityVertices().get(readyDequeue.get(j+1).intValue()))
-							{
-								readyDequeue.add(j+1, adjacentVertex);
-								break;
-							}
-						}
-					}			
-				}
+				readyDequeue.addAll(verticesToEnqueue);			
 			}
 			else
 			{

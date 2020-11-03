@@ -38,6 +38,10 @@ public class MultithreadedComputationFIFO {
 	// Flag variable that indicates if there is a vertex/task to be stolen
 	private Boolean availableVertexToSteal;
 	
+	// Array that stores the priority in the computation of each vertex;
+	private ArrayList<Integer> priorityVertices;
+
+	
 	
 	public MultithreadedComputationFIFO(Digraph pG, int pNumberOfProcessors)
 	{
@@ -50,6 +54,7 @@ public class MultithreadedComputationFIFO {
 		numberOfProcessorsStealing = 0;
 		vertexToSteal = -1;
 		availableVertexToSteal = false;
+		priorityVertices = new ArrayList<Integer>();
 		
 		//Fill the incidentVertices array with the number of incident vertices to each vertex
 		for (int v = 0 ; v < numberVerticesG; v++)
@@ -63,6 +68,16 @@ public class MultithreadedComputationFIFO {
 			visitedVertices.add(0);
 			enqueuedVertices.add(-1);
 		}
+		
+		long startTime = System.nanoTime();
+		//Fill each priorityVertices array entry with its corresponding vertex priority
+		for (int v = 0; v < numberVerticesG ; v++ )
+		{
+			priorityVertices.add(longestPath.calculateLongestPathLengthFromVertex(v));
+		}	
+		long finishTime = System.nanoTime();
+		long executionTime = finishTime-startTime;
+		System.out.println("Priority of vertices calculated in " + executionTime + " nanoseconds.");
 	}
 	
 	/**
@@ -187,6 +202,10 @@ public class MultithreadedComputationFIFO {
 
 	public ArrayList<Integer> getVisitedVertices() {
 		return visitedVertices;
+	}
+
+	public ArrayList<Integer> getPriorityVertices() {
+		return priorityVertices;
 	}
 	
 	public int getNumberOfProcessorsStealing()
