@@ -13,7 +13,7 @@ public class main {
 		Digraph H = dagGenerator.generateDAG();
 		
 		// Creates the controller of the execution
-		Controller controlllerOfComputation =  new Controller(H,3);
+		Controller controlllerOfComputation =  new Controller(H,2);
 		
 		//Start execution 
 		controlllerOfComputation.startExecution();
