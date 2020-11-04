@@ -70,7 +70,8 @@ public class ProcesadorLIFO extends Thread {
 				// Enqueue spawned tasks in the ready dequeue of the processor if exist and haven't been enqueued in other processor's ready dequeue
 				verticesToEnqueue = computation.updateVisitedVertices(vertex,this.id);
 				
-				readyDequeue.addAll(verticesToEnqueue);			
+				// Adds all the spawned tasks at the head of the ready dequeue following FIFO
+				readyDequeue.addAll(0,verticesToEnqueue);			
 			}
 			else
 			{
@@ -150,8 +151,9 @@ public class ProcesadorLIFO extends Thread {
 			// Prints the task/vertex that is being given by the processor
 			System.out.println("Processor " + this.id + " gives task " + readyDequeue.get(0) + " to steal.");
 			
-			computation.setVertexToSteal(this.readyDequeue.get(0));
-			readyDequeue.remove(0);
+			// Gives to steal the task that is at the tail of the ready dequeue
+			computation.setVertexToSteal(this.readyDequeue.get(readyDequeue.size()-1));
+			readyDequeue.remove(readyDequeue.size()-1);
 			
 			vertexSet = true;
 		}
