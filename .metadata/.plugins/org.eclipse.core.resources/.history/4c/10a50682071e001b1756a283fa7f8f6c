@@ -9,7 +9,7 @@ public class main {
 
 	public static void main(String[] args) {
 		// Creates the DAG generator 
-		DagGenerator dagGenerator = new DagGenerator(40);
+		DagGenerator dagGenerator = new DagGenerator(100);
 		Digraph H = dagGenerator.generateDAG();
 		
 		// Creates the controller of the execution
