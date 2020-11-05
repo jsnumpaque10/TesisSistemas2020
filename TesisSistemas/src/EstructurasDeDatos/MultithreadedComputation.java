@@ -74,11 +74,11 @@ public class MultithreadedComputation {
 		}
 		
 		long startTime = System.nanoTime();
+		
 		//Fill each priorityVertices array entry with its corresponding vertex priority
-		for (int v = 0; v < numberVerticesG ; v++ )
-		{
-			priorityVertices.add(longestPath.calculateLongestPathLengthFromVertex(v));
-		}	
+		longestPath.calculateLongestPathLengthFromVertex(0);
+		priorityVertices = longestPath.getPriorityVerticesDAG();
+		
 		long finishTime = System.nanoTime();
 		long executionTime = finishTime-startTime;
 		System.out.println("Priority of vertices calculated in " + executionTime + " nanoseconds.");

@@ -32,18 +32,19 @@ public class ControllerStealingFIFO extends Thread {
 	{	
 		while(computation.numberOfVisitedVertices()!= computation.getNumberVerticesG())
 		{
-			for (int i=0 ; i< processors.size(); i++)
-			{
-				if (processors.get(i).getIsStealing() == false && processors.get(i).setVertexToSteal())
-				{
-					try {
-						sleep(300);
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
-					break;
-				}
-			}
+			if (computation.getNumberOfProcessorsStealing() != 0)
+	 		{
+	 			for (int i=0 ; i< processors.size(); i++)
+	 			if (processors.get(i).getIsStealing() == false && processors.get(i).setVertexToSteal())
+	 			{
+	 				try {
+	 					sleep(300);
+	 				} catch (Exception e) {
+	 							// TODO: handle exception
+	 					}
+	 				break;
+	 			}
+	 		}
 		}
 	}
 	

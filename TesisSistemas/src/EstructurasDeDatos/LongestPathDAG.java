@@ -15,13 +15,22 @@ public class LongestPathDAG {
 	private Topological topologicalOrder;
 	List <Integer> topologicalOrderList;
 	
+	// Array that contains the longest path of each vertex
+	private ArrayList<Integer> priorityVerticesDAG;
+	
 	/*
 	 * Constructor for the class
-	 * vertex1 and vertex2 are vertices in the digraph G 
 	 */
 	public LongestPathDAG(Digraph pG){
 		
 		G=pG;
+		
+		// Fills the array that contains the longest path of each vertex with -1
+		priorityVerticesDAG = new ArrayList<Integer>();
+		for (int i = 0 ; i < G.V() ; i++)
+		{
+			priorityVerticesDAG.add(-1);
+		}
 		
 		topologicalOrder = new Topological(G);
 		Iterable <Integer> topologicalOrderIterable = topologicalOrder.order();
@@ -47,25 +56,51 @@ public class LongestPathDAG {
 	 * @param vertex
 	 * @return the longest path to the given vertex
 	 */
-	public int calculateLongestPathLengthFromVertex (int vertex)
+	public int calculateLongestPathLengthFromVertex (Integer vertex)
 	{
 		int longestPathLengthFromVertex = 0;
 		int currentVertexLongestPath=0;
-		Iterable <Integer> adjacentVertices = G.adj(vertex);
-		Iterator <Integer> adjacentVerticesIterator = adjacentVertices.iterator();
-		if(adjacentVerticesIterator.hasNext())
+		
+		if(vertex != G.V()-1)
 		{
+			Iterable <Integer> adjacentVertices = G.adj(vertex);
+			Iterator <Integer> adjacentVerticesIterator = adjacentVertices.iterator();
+			
 			while(adjacentVerticesIterator.hasNext())
 			{	
-				Integer currentVertex = adjacentVerticesIterator.next().intValue();
-				currentVertexLongestPath = calculateLongestPathLengthFromVertex(currentVertex)+1; 
+				Integer currentVertex = adjacentVerticesIterator.next();
+				if(priorityVerticesDAG.get(currentVertex.intValue()) != -1)
+				{
+					currentVertexLongestPath = priorityVerticesDAG.get(currentVertex.intValue()) + 1;
+				}
+				else
+				{
+					currentVertexLongestPath = calculateLongestPathLengthFromVertex(currentVertex)+1;
+				} 
+				
 				if (currentVertexLongestPath > longestPathLengthFromVertex)
 				{
 					longestPathLengthFromVertex = currentVertexLongestPath;
 				}
 			}
 		}
+		else
+		{
+			priorityVerticesDAG.set(vertex.intValue(), 0);
+		}
+		priorityVerticesDAG.set(vertex.intValue(), longestPathLengthFromVertex);
 		return longestPathLengthFromVertex;
+	}
+	
+	public ArrayList<Integer> getPriorityVerticesDAG()
+	{
+		System.out.print("The priority of the vertices is:");
+		for (int i=0 ; i < priorityVerticesDAG.size(); i++)
+		{
+			System.out.print(" " + priorityVerticesDAG.get(i));
+		}
+		System.out.println(".");
+		return priorityVerticesDAG;
 	}
 	
 }

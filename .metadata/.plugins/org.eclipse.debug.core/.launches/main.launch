@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/TesisSistemas/src/Main/main.java"/>
+<listEntry value="/TesisSistemasLIFO/src/MainLIFO/Main.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="Main.main"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="TesisSistemas"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="MainLIFO.Main"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="TesisSistemasLIFO"/>
 </launchConfiguration>
