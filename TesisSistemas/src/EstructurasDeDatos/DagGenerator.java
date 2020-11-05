@@ -7,15 +7,24 @@ import edu.princeton.cs.algs4.Digraph;
 //Generates a random connected DAG that has the number of vertices given
 public class DagGenerator {
 	
-	//number of vertices of the DAG
+	// Number of vertices of the DAG
 	private int V; 
+	
+	// Probability of setting 1 in the adjacency matrix of the graph
+	double prob;
 	
 	// Adjacency matrix of the DAG
 	private int adjacencyMatrizDAG [][];
 	
 	
-	public DagGenerator (int pV)
+	/**
+	 * Creates a DAG generator. It generates DAG with V vertices and with a given density
+	 * @param pV The amount of vertices of the DAG's that the generator will produce
+	 * @param pProb A number that ranges between 0 and 1. The closest to 1, the denser the graph will be.
+	 */
+	public DagGenerator (int pV, double pProb)
 	{
+		prob = pProb;
 		V= pV;
 		adjacencyMatrizDAG = new int [V][V];
 	}
@@ -34,12 +43,12 @@ public class DagGenerator {
 				adjacencyMatrizDAG[j][i]=0;
 
 				double temp = Math.random();
-				if (temp<=0.5)
+				if (temp<=prob)
 				{
-					adjacencyMatrizDAG[i][j]= 0;
+					adjacencyMatrizDAG[i][j]= 1;
 				}
 				else{
-					adjacencyMatrizDAG[i][j]= 1;
+					adjacencyMatrizDAG[i][j]= 0;
 				}
 			}
 		}

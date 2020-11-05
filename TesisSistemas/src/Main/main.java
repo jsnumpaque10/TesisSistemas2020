@@ -8,8 +8,9 @@ import edu.princeton.cs.algs4.DigraphGenerator;
 public class main {
 
 	public static void main(String[] args) {
+		
 		// Creates the DAG generator 
-		DagGenerator dagGenerator = new DagGenerator(200);
+		DagGenerator dagGenerator = new DagGenerator(200,0.2);
 		Digraph H = dagGenerator.generateDAG();
 		
 		// Creates the controller of the execution
