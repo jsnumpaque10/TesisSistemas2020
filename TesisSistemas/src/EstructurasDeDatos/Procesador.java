@@ -21,7 +21,11 @@ public class Procesador extends Thread{
 	// Ready dequeue of the processor which will be ordered by priority of the vertices/tasks
 	ArrayList <Integer> readyDequeue;
 	
+	// Flag variable that indicates if a the processor is stealing
 	private Boolean isStealing;
+	
+	// Amount of task executed by the processor
+	int tasksExecuted;
 	
 	// Processor's execution time
 	long executionTime;
@@ -68,8 +72,11 @@ public class Procesador extends Thread{
 				// Remove vertex from the ready dequeue of the processor
 				readyDequeue.remove(indexVertexToVisit);
 				
-				// Prints the id of the processor and the vertex/task that has visited/completed
+				// Prints the id of the processor and the vertex/task that has visited/completed.
 				System.out.println("Processor " + this.id + " has completed task " + vertex + ".");
+				
+				// Adds one to the count of the tasks executed by the processor.
+				tasksExecuted ++;
 
 				// Update visitedVertices, incidentVertices and enqueuedVertices arrays in computation so that the vertex/task appears as visited/completed
 				// Enqueue spawned tasks in the ready dequeue of the processor if exist and haven't been enqueued in other processor's ready dequeue
@@ -161,10 +168,6 @@ public class Procesador extends Thread{
 			{
 				this.visitVertex(0);
 			}
-			else
-			{
-				System.out.println("Processor " + this.id + " has finished the execution.");
-			}
 
 		}
 		this.isStealing=false;
@@ -210,6 +213,7 @@ public class Procesador extends Thread{
 				// TODO: handle exception
 			}
 		}
+		System.out.println("Processor " + this.id + " has executed " + tasksExecuted + " tasks.");
 		long finishTime = System.nanoTime();
 		executionTime = finishTime-startTime;
 		System.out.println("Processor " + this.id + " has finished the execution in " + this.executionTime + " nanoseconds.");

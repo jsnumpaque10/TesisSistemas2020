@@ -1941,3 +1941,33 @@ java.lang.ClassNotFoundException: org.eclipse.wst.jsdt.internal.ui.JavaScriptPlu
 
 !ENTRY org.eclipse.ui 4 4 2020-11-02 16:06:28.423
 !MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@4af612b6} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-11-05 14:30:34.619
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.outline.customFilter: {org.eclipse.wst.sse.ui.internal.handlers.CustomFilterHandler} vs {org.eclipse.wst.sse.ui.internal.handlers.CustomFilterHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-11-05 14:30:34.696
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.outline.customFilter: {org.eclipse.wst.sse.ui.internal.handlers.CustomFilterHandler} vs {org.eclipse.wst.sse.ui.internal.handlers.CustomFilterHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-11-05 16:22:39.314
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@4af612b6} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-11-05 16:22:40.026
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@4af612b6} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-11-05 16:31:12.825
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@4af612b6} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-11-05 16:31:13.458
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@4af612b6} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-11-05 16:32:58.727
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@4af612b6} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-11-05 16:44:03.617
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@4af612b6} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-11-05 16:54:05.122
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@4af612b6} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
+
+!ENTRY org.eclipse.ui 4 4 2020-11-05 16:54:05.737
+!MESSAGE Conflicting handlers for org.eclipse.wst.sse.ui.format: {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler@4af612b6} vs {org.eclipse.wst.sse.ui.internal.handlers.FormatHandler}
