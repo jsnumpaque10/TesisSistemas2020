@@ -27,7 +27,7 @@ public class ControllerLIFO {
 		{
 			workStealingController.addProcessor(new ProcesadorLIFO(multithreadedComputation,i));
 			
-			System.out.println("Processor with id " + i + " has been created.");
+			System.out.println("LIFO processor with id " + i + " has been created.");
 		}
 		
 		processors = workStealingController.getProcessors();
@@ -44,16 +44,16 @@ public class ControllerLIFO {
 			if(i == 0)
 			{
 				//Notifies that each processor has started its execution
-				System.out.println("Processor " + i + " has started the execution.");
+				System.out.println("LIFO processor " + i + " has started the execution.");
 				// Starts the work stealing controller
-				System.out.println("Work stealing controller has started execution. ");
+				System.out.println("Work stealing LIFO controller has started execution. ");
 				workStealingController.start();
 				processors.get(i).start();
 			}
 			else
 			{
 				//Notifies that each processor has started its execution
-				System.out.println("Processor " + i + " has started the execution.");
+				System.out.println("LIFO processor " + i + " has started the execution.");
 				processors.get(i).start();
 			}
 

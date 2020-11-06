@@ -119,7 +119,7 @@ public class MultithreadedComputationLIFO {
 	public synchronized Integer stealVertex(Integer id)
 	{	
 		numberOfProcessorsStealing ++;
-		System.out.println("The number of processors stealing is: " + this.numberOfProcessorsStealing +".");
+		System.out.println("The number of LIFO processors stealing is: " + this.numberOfProcessorsStealing +".");
 		
 		// While there is not vertex/task to steal processor waits
 		while (availableVertexToSteal == false)
@@ -141,7 +141,7 @@ public class MultithreadedComputationLIFO {
 			}
 			else{
 				try {
-					System.out.println("Processor " + id + " is looking for a vertex to steal.");
+					System.out.println("LIFO processor " + id + " is looking for a vertex to steal.");
 					wait(300);
 				} catch (InterruptedException e) {
 					// TODO: handle exception

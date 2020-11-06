@@ -119,7 +119,7 @@ public class MultithreadedComputationFIFO {
 	public synchronized Integer stealVertex(Integer id)
 	{	
 		numberOfProcessorsStealing ++;
-		System.out.println("The number of processors stealing is: " + this.numberOfProcessorsStealing +".");
+		System.out.println("The number of FIFO processors stealing is: " + this.numberOfProcessorsStealing +".");
 		
 		// While there is not vertex/task to steal processor waits
 		while (availableVertexToSteal == false)
@@ -141,7 +141,7 @@ public class MultithreadedComputationFIFO {
 			}
 			else{
 				try {
-					System.out.println("Processor " + id + " is looking for a vertex to steal.");
+					System.out.println("FIFO processor " + id + " is looking for a vertex to steal.");
 					wait(300);
 				} catch (InterruptedException e) {
 					// TODO: handle exception

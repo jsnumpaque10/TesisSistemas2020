@@ -213,7 +213,7 @@ public class Procesador extends Thread{
 				// TODO: handle exception
 			}
 		}
-		System.out.println("Processor " + this.id + " has executed " + tasksExecuted + " tasks.");
+		System.out.println("Processor " + this.id + " executed " + tasksExecuted + " tasks.");
 		long finishTime = System.nanoTime();
 		executionTime = finishTime-startTime;
 		System.out.println("Processor " + this.id + " has finished the execution in " + this.executionTime + " nanoseconds.");

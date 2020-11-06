@@ -1,22 +1,22 @@
-package MainFIFO;
+package MainLIFO;
 
-import EstructurasDeDatosFIFO.ControllerFIFO;
-import EstructurasDeDatosFIFO.DagGeneratorFIFO;
+import EstructurasDeDatosLIFO.ControllerLIFO;
+import EstructurasDeDatosLIFO.DagGeneratorLIFO;
 import edu.princeton.cs.algs4.Digraph;
 
-public class main {
-
+public class Main {
+	
 	public static void main(String[] args) {
 		// Creates the DAG generator 
-		DagGeneratorFIFO dagGenerator = new DagGeneratorFIFO(500,0.2);
+		DagGeneratorLIFO dagGenerator = new DagGeneratorLIFO(30);
 		Digraph H = dagGenerator.generateDAG();
 		
 		// Creates the controller of the execution
-		ControllerFIFO controlllerOfComputation =  new ControllerFIFO(H,3);
+		ControllerLIFO controlllerOfComputation =  new ControllerLIFO(H,3);
 		
 		//Start execution 
 		controlllerOfComputation.startExecution();
 		
 	}
-	
+
 }

@@ -51,7 +51,7 @@ public class ProcesadorLIFO extends Thread {
 		if (readyDequeue.isEmpty())
 		{
 			//Prints the state of the processor 
-			System.out.println("Processor's "+ this.id + " ready dequeue is empty.");
+			System.out.println("LIFO processor "+ this.id + " ready dequeue is empty.");
 			
 			this.steal();
 		}
@@ -68,7 +68,7 @@ public class ProcesadorLIFO extends Thread {
 				readyDequeue.remove(indexVertexToVisit);
 				
 				// Prints the id of the processor and the vertex/task that has visited/completed
-				System.out.println("Processor " + this.id + " has completed task " + vertex + ".");
+				System.out.println("LIFO processor " + this.id + " has completed task " + vertex + ".");
 				
 				// Adds one to the count of the tasks executed by the processor.
 				tasksExecuted ++;
@@ -83,7 +83,7 @@ public class ProcesadorLIFO extends Thread {
 			else
 			{
 				//Prints the state of the processor 
-				System.out.println("Processor " + this.id + " has stalled.");
+				System.out.println("LIFO processor " + this.id + " has stalled.");
 				
 				//Processor enters in stall
 				this.stall();
@@ -126,11 +126,11 @@ public class ProcesadorLIFO extends Thread {
 			Integer stolenVertex = computation.stealVertex(this.id);
 			
 			// Prints the id and the task that had been stolen by the processor
-			System.out.println("Processor " + this.id + " steals task " + stolenVertex + ".");
+			System.out.println("LIFO processor " + this.id + " steals task " + stolenVertex + ".");
 			
 			if (stolenVertex.intValue() != -1 && stolenVertex.intValue() != -2)
 			{
-				System.out.println("Task " + stolenVertex + " added to processor's " + this.id + " ready dequeue.");
+				System.out.println("Task " + stolenVertex + " added to LIFO processor " + this.id + " ready dequeue.");
 				readyDequeue.add(stolenVertex);
 				this.visitVertex(readyDequeue.size()-1);
 			}
@@ -151,7 +151,7 @@ public class ProcesadorLIFO extends Thread {
 		if (this.readyDequeue.size()>1)
 		{
 			// Prints the task/vertex that is being given by the processor
-			System.out.println("Processor " + this.id + " gives task " + readyDequeue.get(0) + " to steal.");
+			System.out.println("LIFO processor " + this.id + " gives task " + readyDequeue.get(0) + " to steal.");
 			
 			// Gives to steal the task that is at the tail of the ready dequeue
 			computation.setVertexToSteal(this.readyDequeue.get(readyDequeue.size()-1));
@@ -183,10 +183,10 @@ public class ProcesadorLIFO extends Thread {
 				// TODO: handle exception
 			}
 		}
-		System.out.println("Processor " + this.id + " has executed " + tasksExecuted + " tasks.");
+		System.out.println("LIFO processor " + this.id + " executed " + tasksExecuted + " tasks.");
 		long finishTime = System.nanoTime();
 		executionTime = finishTime-startTime;
-		System.out.println("Processor " + this.id + " has finished the execution in " + this.executionTime + " nanoseconds.");
+		System.out.println("LIFO processor " + this.id + " has finished the execution in " + this.executionTime + " nanoseconds.");
 	}
 	
 	//Get Methods 
