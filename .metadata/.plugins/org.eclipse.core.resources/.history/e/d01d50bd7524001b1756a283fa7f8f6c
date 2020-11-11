@@ -1,0 +1,17 @@
+package MainPruebas;
+
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
+public class main {
+	
+	public static void main(String[] args) {
+		
+		PrintWriter out = new PrintWriter(new FileWriter("/Users/juansebastiannumpaque/TesisSistemas2020/Pruebas.txt"))); 
+		out.print("Hello "); 
+		out.println("world"); 
+		out.close();
+		
+	}
+
+}

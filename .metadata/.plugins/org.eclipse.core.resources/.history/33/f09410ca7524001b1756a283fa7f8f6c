@@ -1,0 +1,24 @@
+package MainPruebas;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class main {
+	
+	public static void main(String[] args) {
+		
+		PrintWriter out;
+		try {
+			out = new PrintWriter(new FileWriter("/Users/juansebastiannumpaque/TesisSistemas2020/Pruebas.txt"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		out.print("Hello "); 
+		out.println("world"); 
+		out.close();
+		
+	}
+
+}
