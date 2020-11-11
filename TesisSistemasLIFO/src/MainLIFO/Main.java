@@ -8,7 +8,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// Creates the DAG generator 
-		DagGeneratorLIFO dagGenerator = new DagGeneratorLIFO(100,0.2);
+		DagGeneratorLIFO dagGenerator = new DagGeneratorLIFO(200,0.05);
 		Digraph H = dagGenerator.generateDAG();
 		
 		// Creates the controller of the execution

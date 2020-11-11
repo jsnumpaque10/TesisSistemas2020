@@ -106,6 +106,9 @@ public class MultithreadedComputationLIFO {
 			{
 				enqueuedVertices.set(adjacentVertex.intValue(), processor);
 				verticesToEnqueue.add(adjacentVertex);
+				
+				// Prints the task that is being enqueued in the ready dequeue of the processor
+				System.out.println("Task " + adjacentVertex + " enqueued in the LIFO processor's " + processor + " ready dequeue. ");
 			}		
 		}
 		

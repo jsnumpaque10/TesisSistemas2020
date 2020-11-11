@@ -10,11 +10,11 @@ public class main {
 	public static void main(String[] args) {
 		
 		// Creates the DAG generator 
-		DagGenerator dagGenerator = new DagGenerator(10,0.2);
+		DagGenerator dagGenerator = new DagGenerator(100,0.2);
 		Digraph H = dagGenerator.generateDAG();
 		
 		// Creates the controller of the execution
-		Controller controlllerOfComputation =  new Controller(H,3);
+		Controller controlllerOfComputation =  new Controller(H,2);
 		
 		//Start execution 
 		controlllerOfComputation.startExecution();
