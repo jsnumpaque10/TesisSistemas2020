@@ -3,5 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="/Users/juansebastiannumpaque/TesisSistemas2020/algs4.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TesisSistemas"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TesisSistemasFIFO"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TesisSistemasLIFO"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
